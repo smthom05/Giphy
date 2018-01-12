@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  // Create our array to hold our mascots
+  // Create our array to hold our teams
   var topics = ["virginia tech hokies", "michigan wolverines", "missouri tigers","colorado buffalos","georgia bulldogs","syracuse orange","alabama crimson tide","arizona state sun devils","oklahoma sooners"];
 
   // _______________ Method to render our buttons to the HTML __________________
@@ -9,16 +9,16 @@ $(document).ready(function() {
   function renderButtons() {
 
     // Delete anything in our div holding our buttons
-    $("#mascot-buttons").empty();
+    $("#team-buttons").empty();
 
-    // Loop through our all the mascots in our array
+    // Loop through our all the teams in our array
     for (var i = 0; i < topics.length; i++) {
 
       // Generate our buttons with Jquery
       var a = $("<button>");
 
-      // Add a class to all of our mascots
-      a.addClass("mascots");
+      // Add a class to all of our teams
+      a.addClass("teams");
 
       // Grab the data in the array and assign to our buttons
       a.attr("data-name", topics[i]);
@@ -27,31 +27,31 @@ $(document).ready(function() {
       a.text(topics[i]);
 
       // Append our buttons to the desired div
-      $("#mascot-buttons").append(a);
+      $("#team-buttons").append(a);
 
     }
   }
   // ________ Generate new buttons from user input _______________________
 
   // Add a click event for the submit button to generate new buttons
-  $("#add-mascot").on("click", function(event){
+  $("#add-team").on("click", function(event){
 
     // Add a prevent default
     event.preventDefault();
 
-    // Grab and store the mascot-input property value from the button
-    var newMascotButton = $("#mascot-input").val().trim();
+    // Grab and store the team-input property value from the button
+    var newTeamButton = $("#team-input").val().trim();
 
-    newMascotButton = newMascotButton.toLowerCase();
+    newTeamButton = newTeamButton.toLowerCase();
 
     // Confirm we are grabbing the input data
-    console.log(newMascotButton);
+    console.log(newTeamButton);
 
-    // Push our new mascot value into our topics array
-    topics.push(newMascotButton);
+    // Push our new team value into our topics array
+    topics.push(newTeamButton);
 
     // Clear out the seach field
-    $("#mascot-input").val('');
+    $("#team-input").val('');
 
     // Call our renderButtons method to generate the new button
     renderButtons();
@@ -59,22 +59,22 @@ $(document).ready(function() {
 
   //________ Function to generate our gifs when button is clicked ___________
 
-  $("#mascot-buttons").on("click", "button", function(event) {
+  $("#team-buttons").on("click", "button", function(event) {
 
     // Add a prevent default
     event.preventDefault();
 
-    // Empty out previous images in the mascot-images gifDiv
-    $("#mascot-images").empty();
+    // Empty out previous images in the team-images gifDiv
+    $("#team-images").empty();
 
     // Get the search term using "THIS" and set it to a new variable
-    var mascotName = $(this).attr("data-name");
+    var teamName = $(this).attr("data-name");
 
     // Confirm we are grabbing the button's information
-    console.log(mascotName);
+    console.log(teamName);
 
     // Construct our URL to search GIPHY for our gifs
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + mascotName + "&api_key=dc6zaTOxFJmzC&limit=10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + teamName + "&api_key=dc6zaTOxFJmzC&limit=10";
 
     // Perform our AJAX call
     $.ajax({
@@ -95,7 +95,7 @@ $(document).ready(function() {
         var gifDiv = $("<div>");
 
         // Create our Image tags
-        var mascotImage = $("<img>");
+        var teamImage = $("<img>");
 
         // Create our gif rating variable
         var rating = results[i].rating;
@@ -104,14 +104,14 @@ $(document).ready(function() {
         var p = $("<p>").text("Rating: " + rating);
 
         // Attach the image source to the variable
-        mascotImage.attr("src", results[i].images.fixed_height.url);
+        teamImage.attr("src", results[i].images.fixed_height.url);
 
         // Append all of our information to the gifDiv
         gifDiv.append(p);
-        gifDiv.append(mascotImage);
+        gifDiv.append(teamImage);
 
         // Get our images to appear in the html
-        $("#mascot-images").prepend(gifDiv);
+        $("#team-images").prepend(gifDiv);
 
       }
     });

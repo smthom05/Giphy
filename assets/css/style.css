@@ -1,12 +1,19 @@
-.mascots {
+.teams {
   margin: 5px;
   font-size: 20px;
   font-weight: bold;
 }
 
-#mascot-form {
+#team-form {
   font-size: 20px;
   text-align: right;
   margin-right: 200px;
   margin-top: 100px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  color: blue;
+  margin-bottom: 20px;
 }
