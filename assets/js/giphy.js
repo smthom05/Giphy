@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-  // Create our array to hold our teams
-  var topics = ["virginia tech hokies", "michigan wolverines", "missouri tigers","colorado buffalos","georgia bulldogs","syracuse orange","alabama crimson tide","arizona state sun devils","oklahoma sooners"];
+  // Create our array to hold our shows
+  var topics = ["the office", "friends", "seinfeld","how I met your mother","it's always sunny in philadelphia","arrested development","flight of the concords","stranger things","parks and rec"];
 
   // _______________ Method to render our buttons to the HTML __________________
 
@@ -9,16 +9,16 @@ $(document).ready(function() {
   function renderButtons() {
 
     // Delete anything in our div holding our buttons
-    $("#team-buttons").empty();
+    $("#show-buttons").empty();
 
-    // Loop through our all the teams in our array
+    // Loop through our all the shows in our array
     for (var i = 0; i < topics.length; i++) {
 
       // Generate our buttons with Jquery
       var a = $("<button>");
 
-      // Add a class to all of our teams
-      a.addClass("teams");
+      // Add a class to all of our shows
+      a.addClass("shows");
 
       // Grab the data in the array and assign to our buttons
       a.attr("data-name", topics[i]);
@@ -27,31 +27,31 @@ $(document).ready(function() {
       a.text(topics[i]);
 
       // Append our buttons to the desired div
-      $("#team-buttons").append(a);
+      $("#show-buttons").append(a);
 
     }
   }
   // ________ Generate new buttons from user input _______________________
 
   // Add a click event for the submit button to generate new buttons
-  $("#add-team").on("click", function(event){
+  $("#add-show").on("click", function(event){
 
     // Add a prevent default
     event.preventDefault();
 
-    // Grab and store the team-input property value from the button
-    var newTeamButton = $("#team-input").val().trim();
+    // Grab and store the show-input property value from the button
+    var newshowButton = $("#show-input").val().trim();
 
-    newTeamButton = newTeamButton.toLowerCase();
+    newshowButton = newshowButton.toLowerCase();
 
     // Confirm we are grabbing the input data
-    console.log(newTeamButton);
+    console.log(newshowButton);
 
-    // Push our new team value into our topics array
-    topics.push(newTeamButton);
+    // Push our new show value into our topics array
+    topics.push(newshowButton);
 
     // Clear out the seach field
-    $("#team-input").val('');
+    $("#show-input").val('');
 
     // Call our renderButtons method to generate the new button
     renderButtons();
@@ -59,22 +59,22 @@ $(document).ready(function() {
 
   //________ Function to generate our gifs when button is clicked ___________
 
-  $("#team-buttons").on("click", "button", function(event) {
+  $("#show-buttons").on("click", "button", function(event) {
 
     // Add a prevent default
     event.preventDefault();
 
-    // Empty out previous images in the team-images gifDiv
-    $("#team-images").empty();
+    // Empty out previous images in the show-images gifDiv
+    $("#show-images").empty();
 
     // Get the search term using "THIS" and set it to a new variable
-    var teamName = $(this).attr("data-name");
+    var showName = $(this).attr("data-name");
 
     // Confirm we are grabbing the button's information
-    console.log(teamName);
+    console.log(showName);
 
     // Construct our URL to search GIPHY for our gifs
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + teamName + "&api_key=dc6zaTOxFJmzC&limit=10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + showName + "&api_key=dc6zaTOxFJmzC&limit=10";
 
     // Perform our AJAX call
     $.ajax({
@@ -95,7 +95,7 @@ $(document).ready(function() {
         var gifDiv = $("<div>");
 
         // Create our Image tags
-        var teamImage = $("<img>");
+        var showImage = $("<img>");
 
         // Create our gif rating variable
         var rating = results[i].rating;
@@ -104,14 +104,14 @@ $(document).ready(function() {
         var p = $("<p>").text("Rating: " + rating);
 
         // Attach the image source to the variable
-        teamImage.attr("src", results[i].images.fixed_height.url);
+        showImage.attr("src", results[i].images.fixed_height.url);
 
         // Append all of our information to the gifDiv
         gifDiv.append(p);
-        gifDiv.append(teamImage);
+        gifDiv.append(showImage);
 
         // Get our images to appear in the html
-        $("#team-images").prepend(gifDiv);
+        $("#show-images").prepend(gifDiv);
 
       }
     });
